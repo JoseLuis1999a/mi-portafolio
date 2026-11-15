@@ -53,26 +53,74 @@ class Producto{
         System.out.println("Precio final:    $" + String.format("%.2f", PrecioFinal()));
     }
 }
+///Subclase 1 - clase derivada
 
-//Clas princiapal
+class ProductoElectrodomestico extends Producto {
+    private int MesesGarantia; // Atributo exclusivo de esta clase
+    
+    //Constructor que reutliza el de la clase base con super()
+    public ProductoElectrodomestico(String nombre, double precioBase, int MesesGarantia){
+        super(nombre, precioBase); //reutilizacion de constructor padre
+        this.MesesGarantia=MesesGarantia;
+    }
+    
+    //Sobreescritura del metodo MostrarDetalle para agregar informacion de la garantia 
+    @Override
+    public void mostrarDetalle(){
+        super.mostrarDetalle(); //llama primero al metodo original de producto.
+        System.out.println("Garantia extendida " + this.MesesGarantia + "Meses");
+    }
+    
+    //Subclase 2 - clase derivada
+    
+    class ProductoRopa extends Producto {
+        private String talla; //atributo exclusivo de esta clase
+        
+        //constructor que reutiliza el de la clase base con super()
+        
+        public ProductoRopa(String nombre, double precioBase, String talla){
+            super(nombre, precioBase);
+            this.talla = talla;
+        }
+        
+        //sobreescritura de metodo mostrarDetalle
+        @Override 
+        public void mostrarDetalle(){
+            super.mostrarDetalle();
+            System.out.println("Talla: "+this.talla);
+        }
+    }
+}
 
 public class Main {
     
     public static void main(String[]args){ ///metodo principal
         //Creacion de objeto Scanner para que permita la entrada de datos en consola
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingresa el nombre del producto");
-        String nombre = scanner.nextLine();
+        System.out.println("===REGISTRO DE PRODUCTO ELECTRODOMESTICO===");
+        System.out.println("Ingresa el nombre del producto Electrodomestico");
+        //String nombre = scanner.nextLine();
+        String nombreElec = scanner.nextLine();      
         System.out.println("Ingresa el precio: ");
-        double precio = scanner.nextDouble();
+        double precioElec = scanner.nextDouble();
+        System.out.println("Ingresa los meses de Garantia: ");
+        int garantia  = scanner.nextInt();
+        scanner.nextLine(); //Limpiar buffer
         
         ///Instacion de objetos...creacion de objeto miProducto usan el constructor parametrizado
-        Producto miProducto = new Producto(nombre, precio);
-        
+       // Producto miProducto = new Producto(nombre, precio);
+            
+       
+       //Instacion de la subclase Producto electrodomestico
+       ProductoElectrodomestico miElectrodomestico = new ProductoElectrodomestico(nombreElec, precioElec, garantia);
+        System.out.println("----RESULTADO ELECTRODOMESTICO ---");
+       miElectrodomestico.mostrarDetalle();
+       
+       scanner.close();
         //ejecucion de metodos....pra mostrar el calculo del precio final.
         
-        System.out.println("---Resultado");
-        miProducto.mostrarDetalle();
+        //stem.out.println("---Resultado");
+        //Producto.mostrarDetalle();
         
         //Cierre del objeto Scanner
         
